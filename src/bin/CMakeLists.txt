@@ -33,3 +33,5 @@ target_link_libraries(tolua++
 	libtolua++
 	"${LUA_LIBRARIES}"
 )
+
+install(TARGETS tolua++ DESTINATION bin)
