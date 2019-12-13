@@ -1,4 +1,4 @@
-add_executable(tolua++_bootstrap
+add_executable(${bootstrap}
 	tolua.c
 	toluabind_default.c
 )
@@ -8,10 +8,11 @@ if(UNIX AND NOT APPLE)
 	list(APPEND LUA_LIBRARIES ${DL_LIBRARY})
 endif()
 
-target_link_libraries(tolua++_bootstrap
-	libtolua++
+target_link_libraries(${bootstrap}
+        ${libname}
 	"${LUA_LIBRARIES}"
 )
+
 
 file(GLOB LUA_FILES
 	RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
@@ -19,19 +20,23 @@ file(GLOB LUA_FILES
 )
 
 add_custom_command(OUTPUT toluabind.c
-	COMMAND tolua++_bootstrap -C -o "${CMAKE_CURRENT_BINARY_DIR}/toluabind.c" tolua.pkg
-	DEPENDS tolua++_bootstrap tolua.pkg ${LUA_FILES}
+	COMMAND ${bootstrap} -C -o "${CMAKE_CURRENT_BINARY_DIR}/toluabind.c" tolua.pkg
+	DEPENDS ${bootstrap} tolua.pkg ${LUA_FILES}
 	WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
 )
 
-add_executable(tolua++
+add_executable(${progname}
 	tolua.c
 	toluabind.c
 )
 
-target_link_libraries(tolua++
-	libtolua++
+target_link_libraries(${progname}
+        ${libname}
 	"${LUA_LIBRARIES}"
 )
 
-install(TARGETS tolua++ DESTINATION bin)
+
+install(TARGETS ${progname}
+                RUNTIME DESTINATION bin
+                COMPONENT ${progname}
+)

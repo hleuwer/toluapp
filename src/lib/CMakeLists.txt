@@ -1,4 +1,4 @@
-add_library(libtolua++
+add_library(${libname} SHARED
 	tolua_event.c
 	tolua_is.c
 	tolua_map.c
@@ -6,4 +6,16 @@ add_library(libtolua++
 	tolua_to.c
 )
 
-set_target_properties(libtolua++ PROPERTIES OUTPUT_NAME "tolua++")
+target_link_libraries(
+        ${libname}
+        "${LUA_LIBRARIES}"
+)
+
+set_target_properties(${libname} PROPERTIES OUTPUT_NAME "tolua++${luavers}")
+
+install(TARGETS ${libname}
+                LIBRARY DESTINATION lib
+                COMPONENT ${libname})
+#install(TARGETS ${libname}
+#                RUNTIME DESTINATION bin
+#                COMPONENT ${libname})
