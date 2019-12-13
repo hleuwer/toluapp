@@ -1,0 +1,20 @@
+Build instructions
+==================
+
+- Create directory build
+	$ mkdir -p ./build
+- Change to build directory
+	$ cd build
+- Run cmake to create makefiles
+  -- Linux, MacOS
+	$ cmake ..
+  -- MSYS2
+	$ cmake -G "MSYS Makefiles" ..
+- Compile and link
+	$ make
+- Install
+  -- Linux, MacOS
+	$ sudo make install
+  -- MSYS2
+	$ make install
+
